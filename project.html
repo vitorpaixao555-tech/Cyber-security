@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Final - CloudSec Banking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .project-hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            color: white;
+            padding: var(--spacing-20) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .project-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .project-hero h1 {
+            font-size: var(--font-size-5xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .project-hero p {
+            font-size: var(--font-size-xl);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .scenario-section {
+            background: var(--gray-50);
+            padding: var(--spacing-20) 0;
+        }
+        
+        .scenario-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-10);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--spacing-12);
+        }
+        
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .scenario-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: var(--radius-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--font-size-3xl);
+        }
+        
+        .scenario-title {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .scenario-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--gray-600);
+        }
+        
+        .scenario-content {
+            font-size: var(--font-size-lg);
+            line-height: 1.7;
+            color: var(--gray-700);
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-8);
+            margin-top: var(--spacing-12);
+        }
+        
+        .requirement-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-6);
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition-normal);
+        }
+        
+        .requirement-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .requirement-card h4 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+        
+        .requirement-card i {
+            color: var(--primary-color);
+        }
+        
+        .requirement-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .requirement-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-3);
+            color: var(--gray-600);
+        }
+        
+        .requirement-list li i {
+            color: var(--secondary-color);
+            margin-top: 2px;
+        }
+        
+        .deliverables-section {
+            padding: var(--spacing-20) 0;
+        }
+        
+        .deliverable-detail {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .deliverable-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .deliverable-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-color), #d97706);
+            color: white;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: var(--font-size-xl);
+            flex-shrink: 0;
+        }
+        
+        .deliverable-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .deliverable-description {
+            font-size: var(--font-size-lg);
+            color: var(--gray-600);
+        }
+        
+        .deliverable-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-8);
+            margin-top: var(--spacing-6);
+        }
+        
+        .content-details {
+            color: var(--gray-700);
+            line-height: 1.7;
+        }
+        
+        .content-details h5 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin: var(--spacing-6) 0 var(--spacing-3) 0;
+        }
+        
+        .content-details h5:first-child {
+            margin-top: 0;
+        }
+        
+        .deliverable-specs {
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-6);
+        }
+        
+        .spec-item {
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .spec-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .spec-label {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-1);
+        }
+        
+        .spec-value {
+            font-size: var(--font-size-base);
+            color: var(--gray-900);
+            font-weight: 500;
+        }
+        
+        .timeline-section {
+            background: var(--gray-50);
+            padding: var(--spacing-20) 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--spacing-12);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 50%;
+            padding-right: var(--spacing-8);
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50%;
+            margin-right: 0;
+            padding-left: var(--spacing-8);
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 4px solid white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: var(--spacing-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .timeline-week {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .timeline-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .timeline-description {
+            color: var(--gray-600);
+            font-size: var(--font-size-sm);
+        }
+        
+        .evaluation-section {
+            padding: var(--spacing-20) 0;
+        }
+        
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-6);
+        }
+        
+        .evaluation-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-6);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+        }
+        
+        .evaluation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .evaluation-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary-color), #059669);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-4);
+            color: white;
+            font-size: var(--font-size-2xl);
+        }
+        
+        .evaluation-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .evaluation-weight {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .evaluation-description {
+            color: var(--gray-600);
+            font-size: var(--font-size-sm);
+        }
+        
+        @media (max-width: 768px) {
+            .deliverable-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 50px;
+                margin-right: 0;
+                padding-left: var(--spacing-6);
+                padding-right: var(--spacing-6);
+                text-align: left;
+            }
+            
+            .timeline-marker {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>CloudSec Banking</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="modules.html" class="nav-link">Módulos</a></li>
+                <li><a href="#scenario" class="nav-link">Cenário</a></li>
+                <li><a href="#deliverables" class="nav-link">Entregáveis</a></li>
+                <li><a href="#timeline" class="nav-link">Cronograma</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content">
+                <h1>Projeto Final: Arquiteto de Segurança em Nuvem</h1>
+                <p>
+                    Aplique todo o conhecimento adquirido em um projeto real que simulará 
+                    a migração de um banco tradicional para a nuvem, garantindo segurança 
+                    e conformidade total com as regulamentações.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenario Section -->
+    <section id="scenario" class="scenario-section">
+        <div class="container">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div>
+                        <h2 class="scenario-title">Cenário: Banco Seguro Digital</h2>
+                        <p class="scenario-subtitle">Uma transformação digital completa e segura</p>
+                    </div>
+                </div>
+                
+                <div class="scenario-content">
+                    <p>
+                        Você foi contratado como <strong>Arquiteto Principal de Segurança em Nuvem</strong> 
+                        pelo Banco Seguro Digital, uma instituição financeira tradicional com 50 anos de história 
+                        que decidiu embarcar em uma jornada ambiciosa de transformação digital.
+                    </p>
+                    
+                    <p>
+                        A diretoria aprovou um investimento de R$ 100 milhões para migrar as operações mais críticas 
+                        para a nuvem, incluindo:
+                    </p>
+                    
+                    <ul style="margin: var(--spacing-4) 0; padding-left: var(--spacing-6);">
+                        <li>Sistema de processamento de transações (PIX, TED, DOC)</li>
+                        <li>Portal de internet banking e mobile banking</li>
+                        <li>Armazenamento de dados de clientes e histórico financeiro</li>
+                        <li>Sistema de análise de crédito e prevenção de fraudes</li>
+                        <li>Plataforma de Open Banking</li>
+                    </ul>
+                    
+                    <p>
+                        O desafio é garantir que essa migração ocorra de forma segura, em total conformidade 
+                        com as regulamentações do Banco Central, LGPD, PCI-DSS e ISO 27001, sem comprometer 
+                        a disponibilidade dos serviços ou a confiança dos 2 milhões de clientes do banco.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="section-header">
+                <h2 class="section-title">Requisitos do Projeto</h2>
+                <p class="section-subtitle">
+                    Sua solução deve atender a todos estes requisitos técnicos e regulatórios
+                </p>
+            </div>
+            
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <h4><i class="fas fa-shield-alt"></i>Segurança</h4>
+                    <ul class="requirement-list">
+                        <li><i class="fas fa-check"></i>Criptografia end-to-end para dados sensíveis</li>
+                        <li><i class="fas fa-check"></i>IAM com princípio do privilégio mínimo</li>
+                        <li><i class="fas fa-check"></i>Segmentação de rede e micro-segmentação</li>
+                        <li><i class="fas fa-check"></i>Monitoramento 24/7 e detecção de ameaças</li>
+                        <li><i class="fas fa-check"></i>Backup e recuperação de desastres</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4><i class="fas fa-balance-scale"></i>Compliance</h4>
+                    <ul class="requirement-list">
+                        <li><i class="fas fa-check"></i>Aderência total à LGPD</li>
+                        <li><i class="fas fa-check"></i>Conformidade com PCI-DSS v4.0</li>
+                        <li><i class="fas fa-check"></i>Atendimento à Circular 3.909 do Bacen</li>
+                        <li><i class="fas fa-check"></i>Implementação da ISO 27001/27002</li>
+                        <li><i class="fas fa-check"></i>Auditabilidade e rastreabilidade completa</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4><i class="fas fa-chart-line"></i>Performance</h4>
+                    <ul class="requirement-list">
+                        <li><i class="fas fa-check"></i>Disponibilidade de 99.9% (SLA)</li>
+                        <li><i class="fas fa-check"></i>Latência máxima de 200ms para transações</li>
+                        <li><i class="fas fa-check"></i>Capacidade para 10.000 transações/segundo</li>
+                        <li><i class="fas fa-check"></i>Escalabilidade automática</li>
+                        <li><i class="fas fa-check"></i>RTO de 4 horas e RPO de 1 hora</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4><i class="fas fa-globe-americas"></i>Localização</h4>
+                    <ul class="requirement-list">
+                        <li><i class="fas fa-check"></i>Dados de clientes brasileiros no Brasil</li>
+                        <li><i class="fas fa-check"></i>Logs de auditoria em território nacional</li>
+                        <li><i class="fas fa-check"></i>Backup secundário em região diferente</li>
+                        <li><i class="fas fa-check"></i>Conectividade dedicada com datacenter</li>
+                        <li><i class="fas fa-check"></i>Plano de contingência local</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables Section -->
+    <section id="deliverables" class="deliverables-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Entregáveis do Projeto</h2>
+                <p class="section-subtitle">
+                    Documentação completa que seria apresentada à diretoria e auditores
+                </p>
+            </div>
+
+            <!-- Deliverable 1 -->
+            <div class="deliverable-detail">
+                <div class="deliverable-header">
+                    <div class="deliverable-number">1</div>
+                    <div>
+                        <h3 class="deliverable-title">Diagramas de Arquitetura</h3>
+                        <p class="deliverable-description">Representação visual completa da solução proposta</p>
+                    </div>
+                </div>
+                
+                <div class="deliverable-content">
+                    <div class="content-details">
+                        <h5>Diagrama de Alto Nível</h5>
+                        <p>
+                            Visão geral da arquitetura mostrando os principais componentes, fluxos de dados, 
+                            integrações com sistemas legados e pontos de conectividade. Deve incluir a 
+                            representação de múltiplas regiões, zonas de disponibilidade e a estratégia 
+                            de distribuição geográfica.
+                        </p>
+                        
+                        <h5>Diagrama de Segurança Detalhado</h5>
+                        <p>
+                            Foco específico nos controles de segurança, incluindo segmentação de rede, 
+                            pontos de criptografia, controles de acesso (IAM), firewalls, WAF, 
+                            sistemas de detecção de intrusão e fluxos de monitoramento de segurança.
+                        </p>
+                        
+                        <h5>Diagrama de Compliance</h5>
+                        <p>
+                            Mapeamento visual de como cada requisito regulatório (LGPD, PCI-DSS, Bacen) 
+                            é atendido na arquitetura, incluindo controles técnicos, pontos de auditoria 
+                            e evidências de conformidade.
+                        </p>
+                        
+                        <h5>Diagrama de Recuperação de Desastres</h5>
+                        <p>
+                            Estratégia de backup, replicação de dados, failover automático e procedimentos 
+                            de recuperação, incluindo RPO/RTO para cada componente crítico.
+                        </p>
+                    </div>
+                    
+                    <div class="deliverable-specs">
+                        <div class="spec-item">
+                            <div class="spec-label">Formato</div>
+                            <div class="spec-value">Visio, Lucidchart ou Draw.io</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Quantidade</div>
+                            <div class="spec-value">4 diagramas principais</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Resolução</div>
+                            <div class="spec-value">Mínimo 300 DPI</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Padrão</div>
+                            <div class="spec-value">Notação UML/ArchiMate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deliverable 2 -->
+            <div class="deliverable-detail">
+                <div class="deliverable-header">
+                    <div class="deliverable-number">2</div>
+                    <div>
+                        <h3 class="deliverable-title">Documentação Técnica de Segurança</h3>
+                        <p class="deliverable-description">Especificações detalhadas de implementação</p>
+                    </div>
+                </div>
+                
+                <div class="deliverable-content">
+                    <div class="content-details">
+                        <h5>Políticas de IAM</h5>
+                        <p>
+                            Exemplos práticos de políticas JSON/YAML para AWS IAM, Azure RBAC ou Google Cloud IAM, 
+                            implementando o princípio do privilégio mínimo para diferentes perfis de usuários 
+                            (desenvolvedores, operações, auditores, executivos).
+                        </p>
+                        
+                        <h5>Estratégia de Criptografia</h5>
+                        <p>
+                            Documentação completa sobre criptografia em repouso e em trânsito, incluindo 
+                            algoritmos utilizados, gerenciamento de chaves (KMS/HSM), rotação de chaves, 
+                            e procedimentos de escrow para auditoria.
+                        </p>
+                        
+                        <h5>Plano de Monitoramento</h5>
+                        <p>
+                            Especificação de métricas, logs, alertas e dashboards para monitoramento de 
+                            segurança e performance. Inclui configuração de SIEM, correlação de eventos 
+                            e procedimentos de resposta a incidentes.
+                        </p>
+                        
+                        <h5>Configurações de Rede</h5>
+                        <p>
+                            Detalhamento de VPCs, sub-redes, grupos de segurança, NACLs, roteamento, 
+                            VPN/Direct Connect, e configurações de firewall para implementar a 
+                            segmentação e micro-segmentação necessárias.
+                        </p>
+                    </div>
+                    
+                    <div class="deliverable-specs">
+                        <div class="spec-item">
+                            <div class="spec-label">Formato</div>
+                            <div class="spec-value">PDF + Código (JSON/YAML)</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Páginas</div>
+                            <div class="spec-value">40-60 páginas</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Código</div>
+                            <div class="spec-value">Terraform/CloudFormation</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Versionamento</div>
+                            <div class="spec-value">Git com histórico</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deliverable 3 -->
+            <div class="deliverable-detail">
+                <div class="deliverable-header">
+                    <div class="deliverable-number">3</div>
+                    <div>
+                        <h3 class="deliverable-title">Relatórios de Conformidade Regulatória</h3>
+                        <p class="deliverable-description">Evidências para auditores do Banco Central</p>
+                    </div>
+                </div>
+                
+                <div class="deliverable-content">
+                    <div class="content-details">
+                        <h5>Relatório de Conformidade LGPD</h5>
+                        <p>
+                            Demonstração detalhada de como a arquitetura protege dados pessoais, implementa 
+                            os direitos dos titulares (acesso, correção, exclusão), garante a minimização 
+                            de dados e atende aos princípios de finalidade, adequação e necessidade.
+                        </p>
+                        
+                        <h5>Relatório de Conformidade PCI-DSS</h5>
+                        <p>
+                            Mapeamento completo dos 12 requisitos do PCI-DSS v4.0 na arquitetura de nuvem, 
+                            incluindo proteção de dados de cartão, controles de acesso, monitoramento 
+                            de rede, testes de segurança e políticas de segurança da informação.
+                        </p>
+                        
+                        <h5>Relatório de Conformidade Bacen</h5>
+                        <p>
+                            Atendimento específico à Circular 3.909 e Resolução CMN 4.893, abordando 
+                            contratação de serviços de nuvem, gestão de riscos operacionais, localização 
+                            de dados, plano de segurança cibernética e continuidade de negócios.
+                        </p>
+                        
+                        <h5>Matriz de Controles ISO 27001</h5>
+                        <p>
+                            Mapeamento dos controles da ISO 27001:2022 implementados na arquitetura, 
+                            incluindo evidências de implementação, responsáveis, frequência de revisão 
+                            e métricas de eficácia.
+                        </p>
+                    </div>
+                    
+                    <div class="deliverable-specs">
+                        <div class="spec-item">
+                            <div class="spec-label">Formato</div>
+                            <div class="spec-value">PDF Executivo</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Relatórios</div>
+                            <div class="spec-value">4 documentos principais</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Evidências</div>
+                            <div class="spec-value">Screenshots + Logs</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Assinatura</div>
+                            <div class="spec-value">Digital (ICP-Brasil)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cronograma de Desenvolvimento</h2>
+                <p class="section-subtitle">
+                    Planejamento semanal para execução do projeto final
+                </p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-week">Semana 1-2</div>
+                        <div class="timeline-title">Análise e Planejamento</div>
+                        <div class="timeline-description">
+                            Análise detalhada dos requisitos, pesquisa de melhores práticas, 
+                            definição da arquitetura de alto nível e escolha dos provedores de nuvem.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-week">Semana 3-4</div>
+                        <div class="timeline-title">Design da Arquitetura</div>
+                        <div class="timeline-description">
+                            Criação dos diagramas de arquitetura, definição de componentes de segurança, 
+                            planejamento de rede e estratégia de dados.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-week">Semana 5-6</div>
+                        <div class="timeline-title">Implementação de Segurança</div>
+                        <div class="timeline-description">
+                            Desenvolvimento das políticas de IAM, configuração de criptografia, 
+                            implementação de monitoramento e logging.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-week">Semana 7-8</div>
+                        <div class="timeline-title">Compliance e Documentação</div>
+                        <div class="timeline-description">
+                            Mapeamento de controles regulatórios, criação de evidências de conformidade 
+                            e elaboração dos relatórios para auditores.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-week">Semana 9-10</div>
+                        <div class="timeline-title">Testes e Validação</div>
+                        <div class="timeline-description">
+                            Testes de segurança, validação de compliance, simulação de cenários 
+                            de falha e ajustes finais na documentação.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-week">Semana 11-12</div>
+                        <div class="timeline-title">Apresentação Final</div>
+                        <div class="timeline-description">
+                            Preparação da apresentação executiva, revisão final dos entregáveis 
+                            e defesa do projeto para banca avaliadora.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluation Section -->
+    <section class="evaluation-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Critérios de Avaliação</h2>
+                <p class="section-subtitle">
+                    Como seu projeto será avaliado pelos especialistas
+                </p>
+            </div>
+            
+            <div class="evaluation-grid">
+                <div class="evaluation-card">
+                    <div class="evaluation-icon">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <div class="evaluation-title">Qualidade Técnica</div>
+                    <div class="evaluation-weight">30%</div>
+                    <div class="evaluation-description">
+                        Adequação da arquitetura, uso de melhores práticas, 
+                        inovação e viabilidade técnica da solução.
+                    </div>
+                </div>
+                
+                <div class="evaluation-card">
+                    <div class="evaluation-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="evaluation-title">Segurança</div>
+                    <div class="evaluation-weight">25%</div>
+                    <div class="evaluation-description">
+                        Implementação de controles de segurança, 
+                        defesa em profundidade e gestão de riscos.
+                    </div>
+                </div>
+                
+                <div class="evaluation-card">
+                    <div class="evaluation-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="evaluation-title">Compliance</div>
+                    <div class="evaluation-weight">25%</div>
+                    <div class="evaluation-description">
+                        Aderência às regulamentações, qualidade das 
+                        evidências e preparação para auditoria.
+                    </div>
+                </div>
+                
+                <div class="evaluation-card">
+                    <div class="evaluation-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="evaluation-title">Documentação</div>
+                    <div class="evaluation-weight">20%</div>
+                    <div class="evaluation-description">
+                        Clareza, completude e profissionalismo 
+                        da documentação e apresentação.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronto para o Desafio Final?</h2>
+                <p>
+                    Este projeto é sua oportunidade de demonstrar domínio completo em segurança 
+                    bancária na nuvem e construir um portfólio que impressionará recrutadores 
+                    dos maiores bancos do país.
+                </p>
+                <div class="cta-buttons">
+                    <a href="index.html" class="btn btn-primary btn-large">
+                        <i class="fas fa-rocket"></i>
+                        Iniciar Curso
+                    </a>
+                    <a href="modules.html" class="btn btn-outline btn-large">
+                        <i class="fas fa-book"></i>
+                        Ver Módulos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>CloudSec Banking</span>
+                    </div>
+                    <p>Formando especialistas em segurança em nuvem e compliance bancário.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Curso</h4>
+                        <ul>
+                            <li><a href="index.html">Visão Geral</a></li>
+                            <li><a href="modules.html">Módulos</a></li>
+                            <li><a href="project.html">Projeto Final</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Recursos</h4>
+                        <ul>
+                            <li><a href="#">Documentação</a></li>
+                            <li><a href="#">Certificações</a></li>
+                            <li><a href="#">Comunidade</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li><a href="#">Suporte</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CloudSec Banking. Todos os direitos reservados.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
